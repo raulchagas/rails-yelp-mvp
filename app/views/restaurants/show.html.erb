@@ -1,1 +1,28 @@
-<h1><%= @restaurant.name %></h1>
+<div class="container">
+
+<div class="card">
+  <h5 class="card-header"><%= @restaurant.name %></h5>
+  <div class="card-body">
+    <h5 class="card-title">Category: <%= @restaurant.category %></h5>
+    <p class="card-text"><%= @restaurant.phone_number %></p>
+    <p class="card-text">Address: <%= @restaurant.address %></p>
+    <p class="card-text">Rating: <%= @restaurant.reviews.average(:rating) %></p>
+  </div>
+  <hr>
+  <%= link_to 'Back to list', restaurants_path %>
+   <%= link_to 'Add review', new_restaurant_review_path(@restaurant) %>
+  <br>
+  <p><strong>Reviews</strong></p>
+<ul class="list-group">
+  <% @restaurant.reviews.each do |review| %>
+      <li class="list-group-item">
+      <%= review.content %> 
+      <%= link_to "Delete",
+      review_path(review),
+      data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
+    %>
+</li>
+  <% end %>
+</ul>
+<br>
+</div>
